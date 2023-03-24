@@ -5,8 +5,9 @@ from pydantic import BaseModel
 import numpy as np
 import cv2
 import base64
-
+import List
 app = FastAPI()
+
 
 class ImageRequest(BaseModel):
     image: str
@@ -21,10 +22,13 @@ def encode_image(image):
     return "data:image/jpeg;base64," + base64.b64encode(encoded_image).decode()
 
 # decode base64 string to image
+
+
 def decode_image(image_string):
     encoded_data = image_string.split(',')[1]
     nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
     return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
 
 def apply_canny(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -42,10 +46,3 @@ async def process_image(image_request: ImageRequest):
             "surname": image_request.surname,
             "numbers": image_request.numbers,
             "processed_image": processed_image}
-
-
-
-
-
-
-
