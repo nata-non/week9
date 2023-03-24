@@ -5,7 +5,7 @@ from pydantic import BaseModel
 import numpy as np
 import cv2
 import base64
-from typing import List
+
 app = FastAPI()
 
 
