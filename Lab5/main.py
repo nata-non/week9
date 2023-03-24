@@ -5,17 +5,8 @@ from pydantic import BaseModel
 import numpy as np
 import cv2
 import base64
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Replace with the appropriate origins
-    allow_credentials=True,
-    allow_methods=["*"],  # Replace with the appropriate HTTP methods
-    allow_headers=["*"],  # Replace with the appropriate HTTP headers
-)
 
 
 class ImageRequest(BaseModel):
