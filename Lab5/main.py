@@ -36,7 +36,7 @@ def apply_canny(image):
     return edges
 
 
-@app.post("/process-image")
+@app.get("/process-image")
 async def process_image(image_request: ImageRequest):
     image = decode_image(image_request.image)
     edges = apply_canny(image)
