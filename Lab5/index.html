@@ -9,4 +9,13 @@
 <body>
     
 </body>
+<script>
+    fetch('http://54.95.142.187:8088/process-image', {
+        method:"POST",
+        body:JSON.stringify({})
+    })
+    .then(res => {
+        console.log(res)
+    })
+</script>
 </html>
