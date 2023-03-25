@@ -1,4 +1,5 @@
 
+from typing import List
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -6,7 +7,6 @@ import numpy as np
 import cv2
 import base64
 from fastapi.middleware.cors import CORSMiddleware
-
 app = FastAPI()
 
 origins = ["*"]
