@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; padding: 200px;">
+        <p>Name : <input id="inputname" type="text"></p>
+        <p>Surname : <input id="inputsurname" type="text"></p>
+        <p>Your number : <input id="yournumber" type="text"></p>
+        <p>Chose image file : <input type="file" onchange="convertimage(this, value)"></p>
+        
+        <button onclick="getImg()">click</button>
+        <h1>Your info Under here!!</h1>
+        <h3 id="name"></h3>
+        <h3 id="surname"></h3>
+        <h3 id="number"></h3>
+        <div style="display: flex; justify-content: space-between; margin-top: 50px;">
+            <img width="500px" height="500px" id="1" alt="">
+            <img width="500px" height="500px" id="2" alt="">
+        </div>
+    </div>
+    
+</body>
+<script>
+    let img = null;
+    let name = ""
+    let surname = ""
+    let number = ""
+    function convertimage(element, value){
+        console.log(value);
+        
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            // console.log('RESULT', reader.result);
+            img = reader.result;
+            name = document.getElementById("inputname").value
+            surname = document.getElementById("inputsurname").value
+            number = document.getElementById("yournumber").value
+            console.log(number);
+            document.getElementById("1").src = reader.result
+        }
+        reader.readAsDataURL(element.files[0]);
+    }
+    async function getImg(){
+        if (img === null) {
+            alert("Please select an image file first.");
+            return;
+        }
+
+        let formData = {
+            image: img,
+            name: name,
+            surname: surname,
+            numbers: number
+        }
+        let request = await fetch('http://localhost:8088/process-image', {
+            method:"POST",
+            headers: {
+                    "Content-Type": "application/json"
+                },
+            body: JSON.stringify(formData) 
+        })
+        ;
+        const response = await request.json();
+        document.getElementById("2").src = response.processed_image
+        document.getElementById("name").innerHTML = response.name
+        document.getElementById("surname").innerHTML = response.surname
+        document.getElementById("number").innerHTML = response.numbers
+        console.log(response);
+    }
+</script>
+</html>
