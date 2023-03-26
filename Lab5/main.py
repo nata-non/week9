@@ -24,7 +24,7 @@ class ImageRequest(BaseModel):
     image: str
     name: str
     surname: str
-    numbers: str
+    numbers: List[list]
 
 
 # encode image as base64 string

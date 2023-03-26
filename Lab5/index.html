@@ -14,7 +14,7 @@
     let img = null;
     let name = "natanon"
     let surname = "hanchana"
-    let number = "63070045"
+    let number = [1, 2, 3, 4, 5]
     function convertimage(element){
         var reader = new FileReader();
         reader.onloadend = function() {
@@ -31,13 +31,16 @@
         }
 
         let formData = {
-            image:img,
-            name:name,
-            surname:surname,
-            numbers:number
+            image: img,
+            name: name,
+            surname: surname,
+            numbers: number
         }
         let request = await fetch('http://localhost:8080/process-image', {
             method:"POST",
+            headers: {
+                    "Content-Type": "application/json"
+                },
             body: JSON.stringify(formData) 
         })
         console.log(formData);;
